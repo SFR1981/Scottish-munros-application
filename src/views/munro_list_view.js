@@ -9,18 +9,18 @@ const MunrosListView = function (container) {
 MunrosListView.prototype.bindEvents = function () {
   PubSub.subscribe('Munro:all-Munros', (evt) => {
     this.munros = evt.detail;
-    console.log(this.munros);
-  //  this.render();
+
+   this.render();
   });
 };
 
-// ContinentsListView.prototype.render = function () {
-//   this.continents.forEach((continent) => {
-//     const continentView = new ContinentView(this.container, continent);
-//     continentView.render();
-//   });
-// };
+MunrosListView.prototype.render = function () {
+  this.munros.forEach((munro) => {
+    const munroView = new MunroView(this.container, munro);
+    munroView.render();
+  });
+};
 
 
 
-module.exports = ContinentsListView;
+module.exports = MunrosListView;
