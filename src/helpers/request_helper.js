@@ -15,7 +15,7 @@ RequestHelper.prototype.get = function (onComplete) {
   xhr.send();
 };
 
-Request.prototype.getFilteredData = function () {
+RequestHelper.prototype.getFilteredData = function () {
   return fetch(this.url)
     .then(res => res.json());
 }

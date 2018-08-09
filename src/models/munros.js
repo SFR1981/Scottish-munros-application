@@ -11,17 +11,21 @@ Munros.prototype.bindEvents = function () {
   };
 
 
-// Munros.prototype.getFilteredData = function (region) {
-//   const url = `https://munroapi.herokuapp.com/api/munros/region/${ region }`;
-//   const request = new Request(url);
-//   request.get()
-//     .then((data) => (){
-//       this.data = data.message;
-//       PubSub.publish('Munros:filtered-list-ready', this.data);
-//   })
-//     .catch((err) =>
-//       console.error(err)
-//   )};
+Munros.prototype.getFilteredData = function (region) {
+  const url = `https://munroapi.herokuapp.com/api/munros/region/${ region }`;
+  const request = new Request(url);
+  console.log(url);
+  request.getFilteredData()
+    .then((data) => {
+    //  console.log(data);
+      this.data = data;
+
+      PubSub.publish('Munros:filtered-list-ready', this.data);
+  })
+    .catch((err) =>{
+      console.error(err);
+    })}
+
 
 
 
@@ -48,14 +52,15 @@ Munros.prototype.getAllRegions = function () {
   const url = 'https://munroapi.herokuapp.com/api/munros/';
   const request = new Request(url);
   request.get((data) => {
-    this.data = data;
     this.data = data.map(munro => munro.region)
  .filter((region, index, regions) =>  regions.indexOf(region) === index);
 
 console.log(this.data);
+
+  PubSub.publish('Munro:dropdown-region', this.data);
      })
 
-    PubSub.publish('Munro:dropdown-region', this.data);
+
   };
 
   //

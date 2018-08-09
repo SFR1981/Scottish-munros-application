@@ -6,6 +6,7 @@ const MunroView = function (container, munro) {
 };
 
 MunroView.prototype.render = function () {
+  
   const munroContainer = document.createElement('div');
   munroContainer.classList.add('munro');
 
