@@ -7,6 +7,7 @@ const Munros = function () {
 
 Munros.prototype.bindEvents = function () {
   this.getAllData();
+  this.getAllRegions();
   };
 
 
@@ -39,6 +40,31 @@ Munros.prototype.bindEvents = function () {
     PubSub.publish('Munro:all-Munros', this.data);
   })
 };
+
+
+
+Munros.prototype.getAllRegions = function () {
+
+  const url = 'https://munroapi.herokuapp.com/api/munros/';
+  const request = new Request(url);
+  request.get((data) => {
+    this.data = data;
+    this.data = data.map(munro => munro.region)
+ .filter((region, index, regions) =>  regions.indexOf(region) === index);
+
+console.log(this.data);
+     })
+
+    PubSub.publish('Munro:dropdown-region', this.data);
+  };
+
+  //
+  // Continents.prototype.getContinentNames = function (countries) {
+  //   return countries
+  //     .map(country => country.region)
+  //     .filter((region, index, regions) => regions.indexOf(region) === index);
+  // };
+
 
 
 
