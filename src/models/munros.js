@@ -5,12 +5,10 @@ const Munros = function () {
   this.data = null;
 }
 
-// Dogs.prototype.bindEvents = function () {
-//   PubSub.subscribe('BreedFormView:form-submitted', (event) => {
-//     const region = event.detail;
-//     this.getData(region);
-//   });
-// }
+Munros.prototype.bindEvents = function () {
+  this.getAllData();
+  };
+
 
 // Munros.prototype.getFilteredData = function (region) {
 //   const url = `https://munroapi.herokuapp.com/api/munros/region/${ region }`;
@@ -38,6 +36,7 @@ const Munros = function () {
       meaning: munro.meaning
     }});
     console.log(this.data);
+    PubSub.publish('Munro:all-Munros', this.data);
   })
 };
 
